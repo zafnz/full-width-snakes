@@ -1,118 +1,18 @@
 <!DOCTYPE html>
 <html>
-<!--
-     If you're not as drunk reading it, as I was writing it, you don't
-     deserve to understand this code.
-
-     This was "written" by Nick Clifford zaf@crypto.geek.nz.
-     Licence is CC0. Read the LICENCE file if you really want.
--->
 <head>
-  <style>
-  .word {
-    display:inline-block;
-  }
-  .snake {
-    display:inline-block;
-    border: 12px solid transparent;
-    border-top:0;
-    border-image:url("snake.png") 24 20 repeat;
-
-  }
-  smaller { font-size: 0.5em; }
-  </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-
+  <script src="snakes.js"></script>
+  <style>
+  smaller { font-size: 0.5em; }
+  </style>
   <script>
 
-function snakemake(el)
-{
-  'use strict';
-  el = $(el);
-
-  var txt = el.text();
-
-  //Someone mentioned something about documentation once. They said it
-  //would be a good idea, one day, if someone, somewhere, wrote some.
-  //Today is not that day. Today you get scrawls in the margin.
-
-  // Grab the text, its not actually words, its words and spaces.
-  var words = txt.split(/(\s+)/);
-  var spans = [];
-
-  if (words[0].match(/^\s*$/)) words.shift();
-
-  //Get rid of that ugly boring text in the element, we need SNAKES!!!
-  el.empty();
-
-  // BADGER BADGER BADGER BADGER BADGER
-  _.each(words,function(word) {
-      // Skip the space. Pull request for a better regex that doesn't
-      // give me spaces gladly accepted (see earlier comment regarding
-      // alcohol)
-      if (word.match(/^\s+$/)) { return }
-
-      // JQuery, because if you're sober enough to write javascript
-      // without it, you don't want to.
-      var span = $("<span class='word'>" + word + "</span>");
-      el.append(span);
-      // Oh, we still need spaces between the boring non snake words.
-      // I shall call those MUSHROOM MUSHROOM.
-      el.append(" ");
-      spans.push(span);
-    });
-
-  var endsOfLine = [];
-  var farRight = 0;
-
-  // Sexy underscore.js can't help us here. Well it probably can, but
-  // it saw the code and doesn't want to.
-  // I need i+1. can't use _.each
-  for(var i = 0; i < spans.length; i++) {
-    var right = spans[i].position().left + spans[i].width();
-    // track the furthest right part.
-    if (right > farRight) { farRight = right}
-    // If there is no next word at all, we are at end of line.
-    // If the next word's left occurs before ours, then we are the end
-    // of the line.
-    if (!spans[i+1] || spans[i].position().left > spans[i+1].position().left) {
-      endsOfLine.push({
-        span:spans[i],
-        left:spans[i].position().left,
-        width:spans[i].width(),
-        right:spans[i].position().left + spans[i].width()
-      });
-    }
-  }
-  // Debugers are for wimps, console.log FTW..
-//  console.log("far right is " + farRight);
-
-//  console.log("Line ends are" + _.map(endsOfLine,function(x){return x.right +":" + (farRight-x.right)}).join(",\n"));
-
-  _.each(endsOfLine, function(lastWord) {
-    if (lastWord.right == farRight) return;
-    // So you can't make the div smaller than the borders, which add up
-    // to 24px to represent the smallest snake.
-    // Pull request welcome with a vertical snake that fits in the smallest
-    // space.
-    if (farRight - lastWord.right < 24) {
-      // Poo
-    } else {
-      $("<span class='snake'></span>")
-          .insertAfter(lastWord.span)
-          .width(farRight-lastWord.right-24);
-    }
-
+  $().ready(function() {
+    // SNAKE! SNAKE! SNAKE
+    snakemake('#quotation');
   });
-
-}
-
-$().ready(function() {
-  // SNAKE! SNAKE! SNAKE
-  snakemake('#quotation');
-})
-
   </script>
 </head>
 <body>
