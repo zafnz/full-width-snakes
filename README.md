@@ -5,6 +5,7 @@ See https://xkcd.com/1676/ for context.
 Licence is CC0. Read the LICENCE file if you really want.
 
 Usage:
+```HTML
   <script src="snakes.js"></script>
   <script>
     $().ready(function() {
@@ -12,7 +13,10 @@ Usage:
       snakemake('#quotation');
     });
   </script>
-
+  <p id='quotation' style='display:block; width:200px'>
+    ...on the relationship between industrialization and the growth,... you fill in the rest
+  </p>
+```
 You can supply anything jQuery accepts as the argument. It turns that block of text into snake text.
 Note: Sadly, only elements containing plain text currently works.
 
