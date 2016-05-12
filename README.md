@@ -4,6 +4,8 @@ See https://xkcd.com/1676/ for context.
 
 Licence is CC0. Read the LICENCE file if you really want.
 
+DEMO: http://zafnz.github.io/snakes.html Much wow
+
 Usage:
 ```HTML
   <script src="snakes.js"></script>
